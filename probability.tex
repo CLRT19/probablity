@@ -1,20 +1,21 @@
 \documentclass[11pt]{elegantbook}
 
-\title{Introduction to Mathematical Analysis}
-\subtitle{Math 521}
+\title{Introduction to Probability Theory}
+\subtitle{Math 531}
 
 \author{Chris Cai/ Linrong Cai}
 \institute{University of Wisconisn Madison}
-\date{Nov 18, 2022}
+\date{May 15, 2023}
 \version{1.0}
-\bioinfo{Instructor}{Jordan Ellenberg}
+\bioinfo{Instructor}{Benedek Valkó}
 
-\extrainfo{Mathematical Analysis is as extensive as nature herself.}
-
+\extrainfo{The theory of probabilities is at bottom nothing but common sense reduced to calculus; it enables us to appreciate with exactness that which accurate minds feel with a sort of instinct for which of times they are unable to account.}
+\vspace{30mm}
 \cover{cover.png}
 
 % modify the color in the middle of titlepage
 \definecolor{customcolor}{RGB}{32,178,170}
+\colorlet{coverlinecolor}{customcolor}
 \colorlet{coverlinecolor}{customcolor}
 \usepackage{cprotect}
 
@@ -28,80 +29,205 @@
 \tableofcontents
 
 \mainmatter
-\chapter{Basics}
 
-\section{Set}
+\chapter{Events and Probability}
+
+\section{Kolmogorov's axioms and probability space}
+
+These are Kolmogorov's axioms for probability theory.
 \begin{definition}
-    A set is a collection of objects called elements.
-\end{definition}
-\begin{definition}
-    The Cartesian product $ A\times B $ is the set whose elements are odered pairs $(a, b)$ with $ a \in A $, $ b \in B $.
-    Particularly, $ A \times A $: $\{(ai, aj) \ \vert \  ai, aj \in A \}$. Often $A^2$
-\end{definition}
-
-\begin{quotation}
-    Henri Poincaré: Mathematics is the art of giving the same name to different things.
-\end{quotation}
-
-\begin{definition}
-    A function $f$ from A to B is a subset $f \subset A \times B $, with the properties if $(a, b)\in f $ and $(a, b') \in f$ then $b = b'$.  We write $f(a)= b $ for $(a, b ) \in f $ means A function $f$ from A to B. 
-    $$ f: A \rightarrow  B \qquad \qquad A \xrightarrow{f} B $$
-\end{definition}
-
-\begin{definition}
-    We say a function $f: A \rightarrow B $ is injective if $f(a) = f(a') \Rightarrow a = a'$.
-    We say it is surjective if $\forall  b, \exists a \mid f(a) = b$.
-\end{definition}
-
-\begin{corollary}
-    Injective: if for every $b \in B $, there is at most one $a \in A$ with $f(a) = b $ \\
-    Surjective: if for every $b \in B $, there is at least one $a \in A$ with $f(a) = b $
-\end{corollary}
-
-\begin{note}
-    If f is both injective and surjective for every $b \in B $. There is exactly one $a \in A$ such that $f(a)= b$, and we called this function is bijective
-\end{note}
-
-\begin{definition}
-    If $G \subset B$, then the inverse image $f^{-1}(G)$ of $G$ under $f$ is defined as:
-    $$\{x \in A : f(x)\in G\}$$
-\end{definition}
-
-If $f$ is bijective then there is a new function $f^{-1}: B \rightarrow A$ 
-
-\chapter{Functions}
-
-\section{Connectness}
-
-\begin{definition}{Topologist Definition}
-    $X$ is connected if there are no 2 non-empty open stes $U_1, U_2\subseteq X$ with $ U_1 \cap U_2 = \emptyset$ and  $ U_1 \cup U_2$ = X
+A $\textbf{probability space}$ is a triple $(\Omega, \mathcal{F}, P)$, with the following components. \\
+(a) $\Omega$ is a set, called the $\textbf{sample space}$. \\ 
+(b) $\mathcal{F}$ is a collection of subsets of $\Omega$. Members of $\mathcal{F}$ are called events. $\mathcal{F}$ is assumed to be a $\sigma$-algebra, which means that it satisfies the following three properties.\\
+(b.1) $\Omega \in \mathcal{F}$. That is, the whole sample space itself is an event.\\
+(b.2) If $A \in \mathcal{F}$ then $A^c \in \mathcal{F}$.\\
+(b.3) If $\left\{A_k\right\}_{1 \leq k<\infty}$ is a sequence of members of $\mathcal{F}$, then their union $\bigcup_{k=1}^{\infty} A_k$ is also a member of $\mathcal{F}$.\\
+(c) $P$ is a function from $\mathcal{F}$ into real numbers, called the $\textbf{probability measure}$ . $P$ satisfies the following axioms.\\
+(c.1) $0 \leq P(A) \leq 1$ for each event $A \in \mathcal{F}$.\\
+(c.2) $P(\varnothing)=0$ and $P(\Omega)=1$.\\
+(c.3) If $\left\{A_k\right\}_{1 \leq k<\infty}$ is a sequence of pairwise disjoint events then
+$$
+P\left(\bigcup_{k=1}^{\infty} A_k\right)=\sum_{k=1}^{\infty} P\left(A_k\right) .
+$$
 \end{definition}
 
 \begin{note}
-When $U_2 = U_1^c$, and they satisfy the above condition, $U_2$ is closed and open 
+    In mathematical analysis and in probability theory, a $\boldsymbol{\sigma}$-algebra (also $\boldsymbol{\sigma}$-field) on a set $X$ is a nonempty collection $\Sigma$ of subsets of $X$ closed under complement, countable unions, and countable intersections. The ordered pair $(X, \Sigma)$ is called a measurable space.
 \end{note}
 
-\begin{definition}{Analyst Definition}
-    $X$ is connected if there is no continuous surjective function $f: X \rightarrow \{0, 1\}$ 
-\end{definition}
 
-\begin{proof}{:}
-    If $f: X \rightarrow \{0, 1\}$ surjective and continuous. Let $U_1 = f^{-1}(0)$, $U_2 = f^{-1}(1)$ are non-empty and open since $f$ is surjective and continuous.
+\section{Inclusion Exclusion Principle}
 
-    As a result, $U_1$ and $U_2$ are disjoint and cover $X$.
-\end{proof}
+\begin{theorem}[inclusion-exclusion principle]
+Let $A_1, A_2, A_3, \ldots$ be events in some probability space $(\Omega, \mathcal{F}, P)$. Then for each integer $n \geq 2$,
+$$
+\begin{aligned}
+P\left(A_1 \cup \cdots \cup A_n\right)= & \sum_{i=1}^n P\left(A_i\right)-\sum_{1 \leq i_1<i_2 \leq n} P\left(A_{i_1} \cap A_{i_2}\right) \\
+& +\sum_{1 \leq i_1<i_2<i_3 \leq n} P\left(A_{i_1} \cap A_{i_2} \cap A_{i_3}\right) \\
+& -\sum_{1 \leq i_1<i_2<i_3<i_4 \leq n} P\left(A_{i_1} \cap A_{i_2} \cap A_{i_3} \cap A_{i_4}\right) \\
+& +\cdots+(-1)^{n+1} P\left(A_1 \cap \cdots \cap A_n\right) . \\
+= & \sum_{k=1}^n(-1)^{k+1} \sum_{1 \leq i_1<\cdots<i_k \leq n} P\left(A_{i_1} \cap \cdots \cap A_{i_k}\right) .
+\end{aligned}
+$$
+This is called the inclusion-exclusion identity.
+\end{theorem}
 
-\begin{equation}
-    $$Hello$$
-\end{equation}
+\section{Monotonicity and Countable Subadditivity}
+
+\begin{proposition}
+Let $A, B, A_1, A_2, A_3, \ldots$ be events in some probability space $(\Omega, \mathcal{F}, P)$\\
+(i) Monotonicity: if $A \subset B$ then $P(A) \leq P(B)$.\\
+(ii) Countable subadditivity: for any sequence of events $\left\{A_k\right\}$,
+$$
+P\left(\bigcup_{k=1}^{\infty} A_k\right) \leq \sum_{k=1}^{\infty} P\left(A_k\right) .
+$$
+Countable subadditivity generalizes the countable additivity axiom in a natural way. Its truth should be fairly obvious because the union $\bigcup_{k=1}^{\infty} A_k$ can have overlaps whose probabilities are then counted several times over in the sum $\sum_{i=1}^{\infty} P\left(A_k\right)$. By taking $A_k=\varnothing$ for all $k>n$ we get a finite version of subadditivity:
+$$
+P\left(A_1 \cup \cdots \cup A_n\right) \leq P\left(A_1\right)+\cdots+P\left(A_n\right)
+$$
+valid for all events $A_1, \ldots, A_n$.
+\end{proposition}
 
 \begin{corollary}
-    Cantor set is disconnected, $\mathbb{Q}$ is disconnected.
+Let $\left\{A_k\right\}$ be a sequence of events on $(\Omega, \mathcal{F}, P)$.\\
+\; (i) If $P\left(A_k\right)=0$ for all $k$, then $P\left(\bigcup_k A_k\right)=0$.\\
+\; (ii) If $P\left(A_k\right)=1$ for all $k$, then $P\left(\bigcap_k A_k\right)=1$.
 \end{corollary}
-\begin{proof}
-    Map first $\frac{1}{3}$ of Cantor set to $\{0\}$, last $\frac{1}{3}$ to $\{1\}$. $\mathbb{Q}$ is separeated by $\sqrt{2}$.
-\end{proof}
-\section{Sequence of function}
+
+\section{Continuity of Probability}
+\begin{definition}
+    Suppose $\left\{A_k\right\}_{k \in \mathbb{Z}_{>0}},\left\{B_k\right\}_{k \in \mathbb{Z}_{>0}}, A$, and $B$ are events in a probability space
+    $(\Omega, \mathcal{F}, P)$. We say that $A_k$ increases up to $A$ and use the notation
+$$
+A_k \nearrow A
+$$
+if the events $A_k$ are nested nondecreasing, which means that $A_1 \subset A_2 \subset A_3 \subset$ $\cdots \subset A_k \subset \cdots$, and $A=\bigcup_k A_k$. Figure 1 illustrates.
+Analogously, we say that $B_k$ decreases down to $B$ and use the notation
+$$
+B_k \searrow B
+$$
+if the events $B_k$ are nested nonincreasing, which means that $B_1 \supset B_2 \supset B_3 \supset \cdots \supset$ $B_k \supset \cdots$, and $B=\bigcap_k B_k$
+\end{definition}
+\begin{theorem}
+
+If $A_k \nearrow A$ or $A_k \searrow A$, then the probabilities converge: $\lim _{k \rightarrow \infty} P\left(A_k\right)=$ $P(A)$
+\end{theorem}
+
+\section{Conditional Probability}
+\begin{definition}{conditional probability}
+Let $B$ be an event on the probability space $(\Omega, \mathcal{F}, P)$ such that $P(B)>0$. Then for all events $A \in \mathcal{F}$ the conditional probability of $A$ given $B$ is defined as
+$$
+P(A \mid B)=\frac{P(A B)}{P(B)}
+$$
+\end{definition}
+
+\begin{proposition}
+  Let $B$ be an event on the probability space $(\Omega, \mathcal{F}, P)$ such that $P(B)>0$. Then as a function of the event $A, P(A \mid B)$ is a probability measure on $(\Omega, \mathcal{F})$
+\end{proposition}
+
+\begin{theorem}
+In each statement below all events are on the same probability $\operatorname{space}(\Omega, \mathcal{F}, P)$\\
+(a) Let $A$ and $B$ be two events and assume $P(B)>0$. Then
+$$
+P(A B)=P(B) P(A \mid B)
+$$
+Let $A_1, \ldots, A_n$ be events and assume $P\left(A_1 \cdots A_{n-1}\right)>0$. Then
+$$
+P\left(A_1 A_2 \cdots A_n\right)=P\left(A_1\right) P\left(A_2 \mid A_1\right) P\left(A_3 \mid A_1 A_2\right) \cdots P\left(A_n \mid A_1 \cdots A_{n-1}\right)
+$$
+(b) Let $\left\{B_i\right\}$ be a countable partition of $\Omega$ and $A$ any event. Then
+$$
+P(A)=\sum_{i: P\left(B_i\right)>0} P\left(A \mid B_i\right) P\left(B_i\right) .
+$$
+The sum above ranges over those indices $i$ such that $P\left(B_i\right)>0$.
+\end{theorem}
+
+\section{Bayes' Formula}
+
+\begin{theorem}{Bayes' formula}
+Let $\left\{B_k\right\}$ be a countable partition of the sample space $\Omega$. Then for any event $A$ with $P(A)>0$ and each $k$ such that $P\left(B_k\right)>0$,
+$$
+P\left(B_k \mid A\right)=\frac{P\left(A B_k\right)}{P(A)}=\frac{P\left(A \mid B_k\right) P\left(B_k\right)}{\sum_{i: P\left(B_i\right)>0} P\left(A \mid B_i\right) P\left(B_i\right)}
+$$
+\end{theorem}
+
+\section{Independent Events}
+
+\begin{definition}
+    Two events $A$ and $B$ are independent if
+$$
+P(A B)=P(A) P(B)
+$$
+\end{definition}
+
+\begin{theorem}
+Suppose that $A$ and $B$ are independent events. Then the same is true for each of these pairs: $A^c$ and $B, A$ and $B^c$, and $A^c$ and $B^c$.
+\end{theorem}
+
+The definition of independence of more than two events requires that the product property hold for any subcollection of events.
+
+\begin{definition}
+(a) Events $A_1, \ldots, A_n$ are independent (or mutually independent) if for every collection $A_{i_1}, \ldots, A_{i_k}$, where $2 \leq k \leq n$ and $1 \leq i_1<i_2<\cdots<$ $i_k \leq n$
+$$
+P\left(A_{i_1} A_{i_2} \cdots A_{i_k}\right)=P\left(A_{i_1}\right) P\left(A_{i_2}\right) \cdots P\left(A_{i_k}\right)
+$$\\
+(b) Let $\left\{A_k\right\}_{k \in \mathbb{Z}_{>0}}$ be an infinite sequence of events in a probability space $(\Omega, \mathcal{F}, P)$. Then events $\left\{A_k\right\}_{k \in \mathbb{Z}_{>0}}$ are independent if for each $n \in \mathbb{Z}_{>0}$, events $A_1, \ldots, A_n$ are independent.
+\end{definition}
+
+\begin{theorem}
+(a) Suppose events $A_1, \ldots, A_n$ are mutually independent. Then for every collection $A_{i_1}, \ldots, A_{i_k}$, where $2 \leq k \leq n$ and $1 \leq i_1<i_2<\cdots<i_k \leq n$, we have
+$$
+P\left(A_{i_1}^* A_{i_2}^* \cdots A_{i_k}^*\right)=P\left(A_{i_1}^*\right) P\left(A_{i_2}^*\right) \cdots P\left(A_{i_k}^*\right)
+$$
+where each $A_i^*$ can represent either $A_i$ or $A_i^c$.\\
+(b) Let $\left\{A_k\right\}_{k \geq 1}$ be a finite or infinite sequence of independent events. Let $0=k_0<k_1<\cdots<k_n$ be integers. Let $B_1, \ldots, B_n$ be events constructed from the $A_k s$ so that, for each $j=1, \ldots, n, B_j$ is formed by applying set operations to $A_{k_{j-1}+1}, \ldots, A_{k_j}$. Then the events $B_1, \ldots, B_n$ are independent.
+\end{theorem}
+
+\begin{definition}
+Let $A_1, \ldots, A_n$ and $B$ be events on $(\Omega, \mathcal{F}, P)$ and assume $P(B)>$ 0 . Then events $A_1, \ldots, A_n$ are conditionally independent, given $B$, if for every collection $A_{i_1}, \ldots, A_{i_k}$, where $2 \leq k \leq n$ and $1 \leq i_1<i_2<\cdots<i_k \leq n$,
+$$
+P\left(A_{i_1} A_{i_2} \cdots A_{i_k} \mid B\right)=\prod_{j=1}^k P\left(A_{i_j} \mid B\right)
+$$
+\end{definition}
+
+\chapter{Random Variables and Probability Distributions}
+\section{Random Variables}
+Often we are interested in some numerical value associated to the outcome of
+a random experiment. This just means that we are interested in the value of a
+function that maps the elements of the sample space into the real numbers. These
+functions are called random variables.
+
+\begin{definition}
+Let $(\Omega, \mathcal{F}, P)$ be a probability space. A random variable on $\Omega$ is a real valued function $X: \Omega \rightarrow \mathbb{R}$, for which $\{\omega \in \Omega: X(\omega) \leq c\} \in \mathcal{F}$ for any $c \in \mathbb{R}$.
+\end{definition}
+
+There is a simple way to encode an events as a random variable.
+
+\begin{definition}
+ Let $B$ be an event in a probability space. Then the indicator function (or indicator random variable) of $B$ is defined as the function
+$$
+I_B(\omega)= \begin{cases}1, & \text { if } \omega \in B \\ 0, & \text { if } \omega \notin B\end{cases}
+$$
+\end{definition}
+
+\begin{note}
+Note that $I_B$ is a random variable.
+\end{note}
+\section{Probability Distributions}
+
+Through the probabilities of events of type $\{X \in B\}$, a random variable induces a probability measure on the real line.
+
+\begin{definition}
+Let $X$ be a random variable defined on the probability space $(\Omega, \mathcal{F}, P)$. The probability distribution of $X$ is the probability measure $\mu$ on $\mathbb{R}$ defined by
+$$
+\mu(B)=P(X \in B)
+$$
+for Borel subsets $B$ of $\mathbb{R}$.
+\end{definition}
+
+\begin{note}
+    In mathematics, a Borel set is any set in a topological space that can be formed from open sets (or, equivalently, from closed sets) through the operations of countable union, countable intersection, and relative complement. Borel sets are named after Émile Borel.
+\end{note}
 
 
 \end{document}

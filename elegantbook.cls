@@ -1021,12 +1021,12 @@
   % define several environment 
   % we define headers like \definitionname before
   \ELEGANT@newtheorem{theorem}{thm}{thmstyle}
-  \ELEGANT@newtheorem{definition}{def}{defstyle}
+  \ELEGANT@newtheorem{definition}{def}{prostyle}
   \ELEGANT@newtheorem{postulate}{pos}{thmstyle}
   \ELEGANT@newtheorem{axiom}{axi}{thmstyle}
   \ELEGANT@newtheorem{corollary}{cor}{thmstyle}
   \ELEGANT@newtheorem{lemma}{lem}{thmstyle}
-  \ELEGANT@newtheorem{proposition}{pro}{prostyle}
+  \ELEGANT@newtheorem{proposition}{pro}{defstyle}
 }{\relax}
 
 
