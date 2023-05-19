@@ -1,7 +1,7 @@
 \documentclass[11pt]{elegantbook}
 
 \title{Introduction to Probability Theory}
-\subtitle{Math 531}
+\subtitle{Quick reference book created from 531 Lecture Notes of Timo Seppalainen and Benedek Valkó}
 
 \author{Chris Cai/ Linrong Cai}
 \institute{University of Wisconisn Madison}
@@ -228,6 +228,270 @@ for Borel subsets $B$ of $\mathbb{R}$.
 \begin{note}
     In mathematics, a Borel set is any set in a topological space that can be formed from open sets (or, equivalently, from closed sets) through the operations of countable union, countable intersection, and relative complement. Borel sets are named after Émile Borel.
 \end{note}
+
+\section{Discrete Random Variables}
+
+\begin{definition}
+A random variable $X$ is discrete if there exists a finite or countably infinite set $B \subset \mathbb{R}$ such that $P(X \in B)=1$.\\
+
+We say that those values $k$ for which $P(X=k)>0$ are the possible values of the discrete random variable $X$.
+
+As for functions in general, the range of a random variable $X$ is the set of all its values: the range of $X$ is the set $\{X(\omega): \omega \in \Omega\}$. In particular, if the range of
+the random variable $X$ is finite or countably infinite, then $X$ is a discrete random variable.
+\end{definition}
+
+\section{Probability Mass Functions}
+\begin{definition}
+The probability mass function (p.m.f.) of a discrete random variable $X$ is the function $p\left(\right.$ or $\left.p_X\right)$ defined by
+$$
+p(k)=P(X=k)
+$$
+for the possible values $k$ of $X$. (In some cases it is convenient to extend the function $p$ for other values as well, we can use the same definition even if $P(X=k)=0$.) \\
+Probabilities of events involving $X$ come by summing values of the probability mass function: for any subset $B \subseteq \mathbb{R}$
+$$
+P(X \in B)=\sum_{k \in B} P(X=k)=\sum_{k \in B} p_X(k)
+$$
+where the sum is over the possible values $k$ of $X$ that lie in $B$.
+\end{definition}
+
+\section{Bernoulli Distribution}
+\begin{definition}
+Let $0 \leq p \leq 1$. We say that a random variable $X$ has Bernoulli distribution with parameter $p$ if $X$ is a discrete random variable with probability mass function
+$$
+p_X(1)=p, \quad p_X(0)=1-p
+$$
+We abbreviate this as $X \sim \operatorname{Ber}(p)$.
+\end{definition}
+\begin{note}
+The distribution of an indicator random variable $I_B$ is always Bernoulli, its parameter is $P(B)$.
+\end{note}
+\section{Cumulative distribution functions}
+\begin{definition}
+Let $X$ be a random variable defined on the probability space $(\Omega, \mathcal{F}, P)$. The cumulative distribution function (c.d.f.) of $X$ is defined by
+$F(s)=P(X \leq s) \quad$ for all $s \in \mathbb{R}$.
+\end{definition}
+\begin{proposition}
+    (a) Let $F: \mathbb{R} \rightarrow[0,1]$ be the cumulative distribution function of a random variable $X$. Then $F$ has the following properties.\\
+(i) Monotonicity: if $s<t$ then $F(s) \leq F(t)$.\\
+(ii) Right continuity: $F(t)=F(t+)$ for each $t \in \mathbb{R}$.\\
+(iii) $\lim _{t \rightarrow-\infty} F(t)=0$ and $\lim _{t \rightarrow \infty} F(t)=1$.\\
+(b) Conversely, if a function $F: \mathbb{R} \rightarrow[0,1]$ has properties (i)-(iii) above, then $F$ is the cumulative distribution function of some random variable.\\
+(c) Let $X$ be a random variable with cumulative distribution function $F$. Then for any $s \in \mathbb{R}$ we have these identities:
+$$
+P(X<s)=F(s-)
+$$
+and
+$$
+P(X=s)=F(s)-F(s-) .
+$$
+\end{proposition}
+
+\section{Probability Density Function}
+
+\begin{definition}
+Let $X$ be a random variable on $(\Omega, \mathcal{F}, P)$. If a function $f$ on $\mathbb{R}$ satisfies $f(x) \geq 0$ for all $x$ and
+$$
+P(X \leq b)=\int_{-\infty}^b f(x) d x
+$$
+for all real values $b$, then $f$ is the probability density function (p.d.f.) of $X$. When $X$ has a density function, we call $X$ an absolutely continuous random variable.
+\end{definition}
+
+\begin{theorem}
+ Suppose the cumulative distribution function $F$ of the random variable $X$ is continuous and the derivative $F^{\prime}(x)$ exists everywhere on the real line, except possibly at countably many points. Then $X$ is an absolutely continuous random variable and $f(x)=F^{\prime}(x)$ is the density function of $X$. If $F$ is not differentiable at a point $x$, then the value $f(x)$ can be set arbitrarily.
+\end{theorem}
+
+\begin{definition}
+Let $f$ be a piecewise continuous function on $\mathbb{R}$. Then $f$ is the density function of a random variable if and only if
+$f(x) \geq 0$ for all $x \in \mathbb{R}$ and $\int_{-\infty}^{\infty} f(x) d x=1$
+\end{definition}
+\begin{corollary}
+    Random variables can be neither discrete nor absolutely continuous.
+\end{corollary}
+\begin{example}
+ Fix $a<b$ and define $F: \mathbb{R} \rightarrow[0,1]$ by
+$$
+F(x)= \begin{cases}0 & \text { if } x<a \\ \frac{1}{3} \cdot \frac{x-a}{b-a} & \text { if } a \leq x<b \\ 1 & \text { if } x \geq b .\end{cases}
+$$
+\end{example}
+\begin{note}
+    It is natural to generalize the above to random vectors. 
+\end{note}
+\section{Uniform Distribution}
+
+\begin{definition}{Uniform distribution on an interval.}
+Let $[a, b]$ be a bounded interval on the real line. Random variable $X$ has the uniform distribution on the interval $[a, b]$ if $X$ has density function
+$$
+f(x)= \begin{cases}\frac{1}{b-a}, & \text { if } x \in[a, b] \\ 0, & \text { if } x \notin[a, b]\end{cases}
+$$
+Abbreviate this by $X \sim \operatorname{Unif}[a, b]$
+If $X \sim \operatorname{Unif}[a, b]$ and $[c, d] \subset[a, b]$, then
+$$
+P(c \leq X \leq d)=\int_c^d \frac{1}{b-a} d x=\frac{d-c}{b-a}
+$$
+\end{definition}
+
+\begin{definition}
+ Let $\Omega$ be a subset of $d$-dimensional Euclidean space $\mathbb{R}^d$ with finite volume. Then the random point $\mathbf{X}$ is uniformly distributed on $\Omega$ if its joint density function is
+$$
+f(\mathbf{x})= \begin{cases}\frac{1}{\operatorname{vol}(\Omega)} & \text { if } \mathbf{x} \in \Omega \\ 0 & \text { if } \mathbf{x} \notin \Omega\end{cases}
+$$
+\end{definition}
+
+\section{Notion of equality}
+
+\begin{definition}{ Almost sure equality}
+   
+Let $X$ and $Y$ be random variables defined on $(\Omega, \mathcal{F}, P)$. Then $X$ and $Y$ are equal almost surely if $P(X=Y)=1$. This is abbreviated by $X=Y$ a.s.
+
+
+\end{definition}
+
+\begin{note}
+    Almost sure equality is also expressed by saying $X=Y$ with probability one, abbreviated $X=Y$ w.p.1. Below is a discrete and an absolutely continuous example of almost sure equality $X=Y$ where pointwise equality fails.
+\end{note}
+\begin{example}
+    Let $\Omega=\{1,2,3\}$ with probability measure $P\{1\}=P\{2\}=\frac{1}{2}$ and $P\{3\}=0$. Define random variables $X$ and $Y$ on $\Omega$ by
+$$
+X(1)=Y(1)=1, X(2)=Y(2)=2, X(3)=3 \text { and } Y(3)=0 .
+$$
+Then $P(X=Y)=P\{1,2\}=1$.
+\end{example}
+
+\begin{definition}{Equality in distribution}
+Random variables $X$ and $Y$ are equal in distribution if $P(X \in$ $B)=P(Y \in B)$ for all Borel subsets $B$ of $\mathbb{R}$. This is abbreviated by $X \stackrel{d}{=} Y$. 
+\end{definition}
+
+\begin{theorem}
+Suppose $X$ and $Y$ are random variables on the same probability space $(\Omega, \mathcal{F}, P)$. Then $P(X=Y)=1$ implies $X \stackrel{d}{=} Y$.
+\end{theorem}
+
+\chapter{Independent and dependent random variables}
+\section{Independence}
+\begin{definition}
+(a) Let $\mathbf{X}_1, \mathbf{X}_2, \ldots, \mathbf{X}_n$ be random vectors defined on the same probability space. Let $\mathbf{X}_i$ be $\mathbb{R}^{d_i}$-valued. Then $\mathbf{X}_1, \mathbf{X}_2, \ldots, \mathbf{X}_n$ are independent if
+$$
+P\left(\mathbf{X}_1 \in B_1, \mathbf{X}_2 \in B_2, \ldots, \mathbf{X}_n \in B_n\right)=\prod_{k=1}^n P\left(\mathbf{X}_k \in B_k\right)
+$$
+for all Borel subsets $B_i \subset \mathbb{R}^{d_i}, i=1, \ldots, n$.\\\\
+(b) Let $\left\{\mathbf{X}_k\right\}_{k \in \mathbb{Z}_{>0}}$ be an infinite sequence of random vectors defined on some probability space $(\Omega, \mathcal{F}, P)$. Then the random vectors $\left\{\mathbf{X}_k\right\}_{k \in \mathbb{Z}_{>0}}$ are independent if, for each $n \in \mathbb{Z}_{>0}$, the random vectors $\mathbf{X}_1, \mathbf{X}_2, \ldots, \mathbf{X}_n$ are independent.
+
+\end{definition}
+
+\begin{theorem}
+ Let $\mathbf{X}_1, \mathbf{X}_2, \ldots, \mathbf{X}_n$ be random vectors defined on the same probability space. For $1 \leq i \leq n$ let $d_i$ be the dimension of $\mathbf{X}_i$ and set $d=d_1+\cdots+d_n$. Define the d-dimensional random vector $\mathbf{Y}=\left(\mathbf{X}_1, \ldots, \mathbf{X}_n\right)$ by putting all the coordinates of the $\mathbf{X}_i$ s together. Denote the joint cumulative distribution functions of these random vectors by $F_{\mathbf{Y}}, F_{\mathbf{X}_1}, \ldots, F_{\mathbf{X}_n}$. Then $\mathbf{X}_1, \mathbf{X}_2, \ldots, \mathbf{X}_n$ are independent if and only if
+$$
+F_{\mathbf{Y}}\left(\mathbf{x}_1, \ldots, \mathbf{x}_n\right)=F_{\mathbf{X}_1}\left(\mathbf{x}_1\right) \cdot F_{\mathbf{X}_2}\left(\mathbf{x}_2\right) \cdots F_{\mathbf{x}_n}\left(\mathbf{x}_n\right)
+$$
+for all vectors $\mathbf{x}_1 \in \mathbb{R}^{d_1}, \mathbf{x}_2 \in \mathbb{R}^{d_2}, \ldots, \mathbf{x}_n \in \mathbb{R}^{d_n}$.
+\end{theorem}
+
+\section{Independent and identically distributed random variables}
+\begin{definition}
+   Random variables $X_1, X_2, X_3, \ldots$ are independent and identically distributed (abbreviated i.i.d.) if they are independent and each $X_k$ has the same probability distribution. That is, $X_k \stackrel{d}{=} X_{\ell}$ for any two indices $k, \ell . $
+\end{definition}
+\section{Independence of jointly absolutely continuous random variables.}
+
+\begin{theorem}
+    Theorem 3.11. Let $X_1, \ldots, X_d$ be random variables on the same sample space. Assume that for each $j=1,2, \ldots, d, X_j$ has density function $f_{X_j}$.
+(a) If $X_1, \ldots, X_d$ have joint density function $f$ given by
+$$
+f\left(x_1, x_2, \ldots, x_d\right)=f_{X_1}\left(x_1\right) f_{X_2}\left(x_2\right) \cdots f_{X_d}\left(x_d\right)
+$$
+then $X_1, \ldots, X_d$ are independent.\\\\
+(b) Suppose $X_1, \ldots, X_d$ are independent. Then they are jointly absolutely continuous with joint density function
+$$
+f\left(x_1, x_2, \ldots, x_d\right)=f_{X_1}\left(x_1\right) f_{X_2}\left(x_2\right) \cdots f_{X_d}\left(x_d\right)
+$$
+\end{theorem}
+
+\section{Finding Independence}
+
+\begin{theorem}
+(a)
+Suppose $X_1, \ldots, X_n$ are independent random variables and for each index $i, g_i$ is a function on the range of $X_i$. Then the random variables $g_1\left(X_1\right), g_2\left(X_2\right), \ldots, g_n\left(X_n\right)$ are independent.
+
+One needs to assume that $g_1, \ldots, g_n$ are measurable, but this does not come up usually in applications.\\ \\
+(b) Let $\left\{X_k\right\}_{k \geq 1}$ be a finite or infinite sequence of independent random variables. Let $0=k_0<k_1<\cdots<k_n$ be integers. Let $g_1, \ldots, g_n$ be functions such that $g_j$ is defined on the range of the random vector $\left(X_{k_{j-1}+1}, \ldots, X_{k_j}\right)$. Define new random variables $Y_j=g_j\left(X_{k_{j-1}+1}, \ldots, X_{k_j}\right)$ for $j=1, \ldots, n$. Then the random variables $Y_1, \ldots, Y_n$ are independent.
+\end{theorem}
+
+\section{Binomial Distribution}
+
+\begin{definition}{Binomial Distribution}
+Let $n$ be a positive integer and $0 \leq p \leq 1$. A random variable $X$ has the binomial distribution with parameters $n$ and $p$ if the possible values of $X$ are $\{0,1, \ldots, n\}$ and the probabilities are
+$$
+P(X=k)=\left(\begin{array}{l}
+n \\
+k
+\end{array}\right) p^k(1-p)^{n-k} \quad \text { for } k=0,1, \ldots, n .
+$$
+Abbreviate this by $X \sim \operatorname{Bin}(n, p)$.
+\end{definition}
+
+\section{Geometric Distribution}
+\begin{definition}{Geometric Distribution}
+    Let $ 0 < p \le 1$. A random variable X has the $\textbf{geometric distribution} $ with success parameter $p$ if the set of possible values of X is $\mathbb{Z}_>0$ and X satisfies $P(X = k) = (1-p)^{k-1}p$ for positive integers k. Abbreviate this by $X \sim \operatorname{Geom}(p)$.
+\end{definition}
+
+\section{Negative Binomial Distribution}
+
+\begin{definition}{Negative binomial distribution}
+ Let $k$ be a positive integer and $0<p \leq 1$. A random variable $X$ has the negative binomial distribution with parameters $(k, p)$ if the set of possible values of $X$ is the set of integers $\mathbb{Z}_{\geq k}=\{k, k+1, k+2, \ldots\}$ and the probability mass function is
+    $$
+    P(X=n)=\left(\begin{array}{l}
+    n-1 \\
+    k-1
+    \end{array}\right) p^k(1-p)^{n-k} \quad \text { for } n \in \mathbb{Z}_{\geq k}
+    $$
+    Abbreviate this by $X \sim \operatorname{Negbin}(k, p)$.
+
+\end{definition}
+\begin{note}
+    The Negbin $(1, p)$ distribution is the same as the $\operatorname{Geom}(p)$ distribution.
+\end{note}
+
+\begin{corollary}
+ Consider a sequence of independent trials with success probability $0<p \leq 1$. Let $N_k$ be the number of trials needed for the $k$ th success. Set $Y_1=N_1$ and $Y_k=N_k-N_{k-1}$ for $k \geq 2$. Then the random variables $Y_1, Y_2, Y_3, \ldots$ are i.i.d. In particular, $N_k-N_{k-1} \sim \operatorname{Geom}(p)$ for each $k \geq 2$.
+\end{corollary}
+\begin{note}
+    Can think of negative binomial as sum of geometric random variables.
+\end{note}
+\section{Possion Distribution}
+\begin{definition}{Possion Distribution}
+   Let $\lambda>0$. A random variable $X$ has the Poisson distribution with parameter $\lambda$ if the possible values of $X$ are the nonnegative integers and the probability mass function is
+    $$
+    P(X=k)=e^{-\lambda} \frac{\lambda^k}{k !} \quad \text { for } k \in\{0,1,2, \ldots\}
+    $$
+    Abbreviate this by $X \sim$ Poisson $(\lambda)$.
+\end{definition}
+\begin{theorem}
+ Fix $\lambda>0$. For positive integers $n$ for which $\lambda / n<1$, let $S_n \sim$ $\operatorname{Bin}(n, \lambda / n)$. Then
+$$
+\lim _{n \rightarrow \infty} P\left(S_n=k\right)=e^{-\lambda} \frac{\lambda^k}{k !} \quad \text { for all } \quad k \in \mathbb{Z}_{\geq 0}
+$$
+\end{theorem}
+\section{Exponential Distributions}
+\begin{definition}
+ Let $0<\lambda<\infty$. A random variable $X$ has the exponential distribution with parameter $\lambda$ if $X$ has density function
+$$
+f(x)= \begin{cases}\lambda e^{-\lambda x}, & x \geq 0 \\ 0, & x<0\end{cases}
+$$
+on the real line. Abbreviate this by $X \sim \operatorname{Exp}(\lambda)$.
+\end{definition}{Exponential Distribution}
+\begin{theorem}
+ Suppose that $X \sim \operatorname{Exp}(\lambda)$. Then for any $s, t>0$, $(3.27)$
+$$
+P(X>t+s \mid X>t)=P(X>s) .
+$$
+\end{theorem}
+\begin{note}
+This is also called the memoryless property.
+\end{note}
+\begin{theorem}
+ Fix $\lambda>0$. Consider $n$ large enough so that $\lambda / n<1$. Suppose that for each $n$, the random variable $T_n$ satisfies $n T_n \sim \operatorname{Geom}(\lambda / n)$. Then
+$$
+\lim _{n \rightarrow \infty} P\left(T_n>t\right)=e^{-\lambda t} \quad \text { for all real } t \geq 0
+$$
+\end{theorem}
 
 
 \end{document}

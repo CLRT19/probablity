@@ -9,3 +9,20 @@
 \contentsline {chapter}{\numberline {2}Random Variables and Probability Distributions}{5}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Random Variables}{5}{section.2.1}%
 \contentsline {section}{\numberline {2.2}Probability Distributions}{5}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Discrete Random Variables}{5}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Probability Mass Functions}{6}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Bernoulli Distribution}{6}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Cumulative distribution functions}{6}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Probability Density Function}{7}{section.2.7}%
+\contentsline {section}{\numberline {2.8}Uniform Distribution}{8}{section.2.8}%
+\contentsline {section}{\numberline {2.9}Notion of equality}{8}{section.2.9}%
+\contentsline {chapter}{\numberline {3}Independent and dependent random variables}{9}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Independence}{9}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Independent and identically distributed random variables}{9}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Independence of jointly absolutely continuous random variables.}{9}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Finding Independence}{10}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Binomial Distribution}{10}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Geometric Distribution}{10}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Negative Binomial Distribution}{11}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Possion Distribution}{11}{section.3.8}%
+\contentsline {section}{\numberline {3.9}Exponential Distributions}{11}{section.3.9}%
