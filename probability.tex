@@ -1,7 +1,7 @@
 \documentclass[11pt]{elegantbook}
 
 \title{Introduction to Probability Theory}
-\subtitle{Quick reference book created from 531 Lecture Notes of Timo Seppalainen and Benedek Valkó}
+\subtitle{Quick reference book created from Math 531 Lecture Notes}
 
 \author{Chris Cai/ Linrong Cai}
 \institute{University of Wisconisn Madison}
@@ -492,6 +492,679 @@ $$
 \lim _{n \rightarrow \infty} P\left(T_n>t\right)=e^{-\lambda t} \quad \text { for all real } t \geq 0
 $$
 \end{theorem}
+\section{Multinomial distribution}
+\begin{definition}
+Let $n$ and $r$ be positive integers and let $p_1, p_2, \ldots, p_r$ be positive reals such that $p_1+p_2+\cdots+p_r=1$. The random vector $\mathbf{X}=\left(X_1, \ldots, X_r\right)$ has the multinomial distribution with parameters $n, r$ and $p_1, \ldots, p_r$ if the possible values of $\mathbf{X}$ are integer vectors $\left(k_1, \ldots, k_r\right)$ such that $k_j \geq 0$ and $k_1+\cdots+k_r=n$, and the joint probability mass function is given by
+$$
+P\left(X_1=k_1, X_2=k_2, \ldots, X_r=k_r\right)=\left(\begin{array}{c}
+n \\
+k_1, k_2, \ldots, k_r
+\end{array}\right) p_1^{k_1} p_2^{k_2} \cdots p_r^{k_r}
+$$
+where the multinomial coefficient is defined by
+$$
+\left(\begin{array}{c}
+n \\
+k_1, k_2, \ldots, k_r
+\end{array}\right)=\frac{n !}{k_{1} ! k_{2} ! \cdots k_{r} !}
+$$
+Abbreviate this by $\left(X_1, \ldots, X_r\right) \sim \operatorname{Mult}\left(n, r, p_1, \ldots, p_r\right)$.
+\end{definition}
 
+\section{Gamma Distribution}
+\begin{definition}
+Let $r, \lambda>0$. A random variable $X$ has the gamma distribution with parameters $(r, \lambda)$ if $X$ is nonnegative and has probability density function
+$$
+f_X(x)=\frac{\lambda^r x^{r-1}}{\Gamma(r)} e^{-\lambda x} \quad \text { for } x>0,
+$$
+and $f_X(x)=0$ for $x \leq 0$. We abbreviate this $X \sim \operatorname{Gamma}(r, \lambda)$.
+\end{definition}
+\section{Convolution}
+
+\begin{definition}
+    As a mathematical concept, convolution is a way of multiplying functions to produce new functions. The operation is denoted by *. The convolution of two functions on the real line is the function $f * g$ whose value at $x$ is defined by
+$$
+(f * g)(x)=\int_{-\infty}^{\infty} f(y) g(x-y) d y,
+$$
+provided of course that these integrals are well-defined for all $x \in \mathbb{R}$. Change of variable from $y$ to $x-y$ shows that convolution is symmetric: $f * g=g * f$.
+\end{definition}
+
+\begin{theorem}{Discrete}
+If $X$ and $Y$ are independent $\mathbb{Z}$-valued random variables with probability mass functions $p_X$ and $p_Y$, then the probability mass function of $X+Y$ is
+$$
+p_{X+Y}(n)=p_X * p_Y(n)=\sum_{k \in \mathbb{Z}} p_X(k) p_Y(n-k)=\sum_{\ell \in \mathbb{Z}} p_X(n-\ell) p_Y(\ell)
+$$
+\end{theorem}
+
+\begin{theorem}{Continuous}
+If $X$ and $Y$ are independent absolutely continuous random variables with density functions $f_X$ and $f_Y$ then the density function of $X+Y$ is
+(3.39) $f_{X+Y}(z)=f_X * f_Y(z)=\int_{-\infty}^{\infty} f_X(x) f_Y(z-x) d x=\int_{-\infty}^{\infty} f_X(z-x) f_Y(x) d x$.
+\end{theorem}
+
+\section{Exchangebale Random Variables}
+\begin{definition}
+ Random variables $X_1, \ldots, X_n$ are exchangeable if for any permutation $\sigma$ on $\{1,2, \ldots, n\}$, the joint distribution of $\left(X_{\sigma(1)}, X_{\sigma(2)}, \ldots, X_{\sigma(n)}\right)$ is the same as the joint distribution of $\left(X_1, X_2, \ldots, X_n\right)$. In other words, permuting the random variables does not change the joint distribution.
+\end{definition}
+\begin{note}
+    Verifying exchangeability boils down to checking that either the joint cumulative distribution function, the joint probability mass function, or the joint density function is a symmetric function. (A function is symmetric if its value is not altered by permuting its arguments.) These cases are collected in the next theorem.
+\end{note}
+
+\begin{theorem}
+    (i) The random variables $X_1, \ldots, X_n$ are exchangeable if for any permutation $\sigma$ on $\{1, \ldots, n\}$ and for any choice of real numbers $x_1, x_2, \ldots, x_n$ we have
+$$
+P\left(X_1 \leq x_1, \ldots, X_n \leq x_n\right)=P\left(X_1 \leq x_{\sigma(1)}, \ldots, X_n \leq x_{\sigma(n)}\right)
+$$
+(ii) Suppose $X_1, \ldots, X_n$ are discrete. Then exchangeability is equivalent to
+$$
+P\left(X_1=x_1, \ldots, X_n=x_n\right)=P\left(X_1=x_{\sigma(1)}, \ldots, X_n=x_{\sigma(n)}\right)
+$$
+for all permutations $\sigma$ on $\{1, \ldots, n\}$ and for all choices of real numbers $x_1, x_2, \ldots, x_n$.\\
+(iii) Suppose $X_1, \ldots, X_n$ are jointly absolutely continuous with joint density function $f_{X_1, \ldots, X_n}$. Then exchangeability is equivalent to having the identity
+$$
+f_{X_1, \ldots, X_n}\left(x_1, \ldots, x_n\right)=f_{X_1, \ldots, X_n}\left(x_{\sigma(1)}, \ldots, x_{\sigma(n)}\right)
+$$
+for all permutations $\sigma$ on $\{1, \ldots, n\}$ and for all choices of real numbers $x_1, x_2, \ldots, x_n$, except possibly on a set of zero volume.
+\end{theorem}
+
+\begin{corollary}{Producing new exchangeable random variables}
+Suppose that $X_1, \ldots, X_n$ are exchangeable.\\
+(i) If $1 \leq m \leq n$ then $X_1, \ldots, X_m$ are also exchangeable.\\
+(ii) Let $g: \mathbb{R} \rightarrow \mathbb{R}$ be a function and define $Y_k=g\left(X_k\right)$. Then the random variables $Y_1, \ldots, Y_n$ are also exchangeable.
+\end{corollary}
+
+\begin{corollary}{Applications of exchangeability}
+ If $X_1, \ldots X_n$ are exchangeable and $k_1, \ldots, k_m$ are distinct numbers from $\{1,2, \ldots, n\}$ then the following statements hold.
+(i) $X_{k_1}, \ldots, X_{k_m}$ have the same joint distribution as $X_1, \ldots, X_m$.
+(ii) For all Borel sets $B \subset \mathbb{R}^m$,
+$$
+P\left(\left(X_{k_1}, \ldots, X_{k_m}\right) \in B\right)=P\left(\left(X_1, \ldots, X_m\right) \in B\right)
+$$
+\end{corollary}
+\chapter{Simple Random Walk}
+\begin{quotation}
+[Upon proving that the best betting stragegy for Gambler's Ruin was to bet all on the first trial.] It is true that a man who does this is a fool. I have only proved that a man who does anything else is an even bigger fool.    \hfill ------- Coolidge, Julian Lowell 
+\end{quotation}
+
+\section{Ganbler's Ruin}
+\begin{example}{Gambler's Ruin}
+ You play repeatedly the following gamble. A fair coin is tossed: heads you win a dollar, tails you lose a dollar. You start playing with $x$ dollars in your pocket. You choose a target $M>x$. Then you play until you either reach $M$ dollars or lose all your money. A question of obvious interest: what is the probability that you reach $M$ dollars before going broke?
+ 
+$$
+\begin{gathered}
+P_x(\text { reach } M \text { before } 0)=\frac{1}{2} P_x(\text { reach } M \text { before } 0 \mid \text { first flip heads }) \\
++\frac{1}{2} P_x(\text { reach } M \text { before } 0 \mid \text { first flip tails }) \\
+=\frac{1}{2} P_{x+1}(\text { reach } M \text { before } 0)+\frac{1}{2} P_{x-1}(\text { reach } M \text { before } 0) .
+\end{gathered}
+$$
+$$
+1=p_M-p_0=\sum_{x=1}^M\left(p_x-p_{x-1}\right)=M\left(p_k-p_{k-1}\right)
+$$
+from which $p_k-p_{k-1}=1 / M$. Then for any $x$,
+$$
+p_x=p_x-p_0=\sum_{k=1}^x\left(p_k-p_{k-1}\right)=\frac{x}{M}
+$$
+\end{example}
+
+\begin{definition}
+Fix $p \in(0,1)$. Let $X_1, X_2, X_3, \ldots$ be i.i.d. random variables with $P\left(X_i=1\right)=p$ and $P\left(X_i=-1\right)=1-p$. Let $S_0$ be an integer. (If $S_0$ is also random, then $S_0$ is independent of the random variables $\left\{X_i\right\}$.) For $n \geq 1$ define
+$$
+S_n=S_0+X_1+X_2+\cdots+X_n
+$$
+The random sequence $S_0, S_1, S_2, \ldots$ is the simple random walk (SRW) with initial position $S_0$. If an initial position is not specified, then $S_0=0$.
+
+If $p=\frac{1}{2}$ then $\left\{S_n\right\}$ is called symmetric simple random walk (SSRW), while if $p \neq \frac{1}{2}$, then $\left\{S_n\right\}$ is asymmetric simple random walk.
+\end{definition}
+
+\begin{theorem}
+Fix integers $0<x<M$. Consider $S S R W\left\{S_n\right\}_{n \geq 0}$ with nonrandom initial state $S_0=x$. Then
+$$
+P\left(S_n \text { visits point } M \text { before visiting } 0\right)=\frac{x}{N} .
+$$
+\end{theorem}
+\begin{theorem}
+ For times $0 \leq m<n$ and points $a, b \in \mathbb{Z}, S R W$ with initial point $S_0=0$ satisfies
+$$
+P\left(S_{n+m}=a+b \mid S_m=a\right)=P\left(S_n=b\right)
+$$
+\end{theorem}
+\section{Symmetric simple random walk}
+\begin{theorem}{Reflection principle}
+ Let $a, b$ be integers with $b>\max (0, a)$. The number of paths of length $n$ that go from 0 to a and visit point $b$ along the way is equal to $N_{n, 0 \rightarrow 2 b-a}$. In particular, for $S S R W$,
+$$
+P\left(S_n=a, S_k=b \text { for some } k=0, \ldots, n\right)=P\left(S_n=2 b-a\right) \text {. }
+$$
+\end{theorem}
+\section{Distribution of the running maximum}
+
+The running maximum of the random walk is defined by $M_n=\max \left(0, S_1, \ldots, S_n\right)$ for $n=0,1,2, \ldots$ It is always nonnegative. We find its distribution.
+\begin{theorem}
+    For $r \in \mathbb{Z}_{\geq 0}$, the running maximum of symmetric $S R W$ satisfies
+$$
+P\left(M_n=r\right)=P\left(S_n=r\right)+P\left(S_n=r+1\right) .
+$$
+Note that one of the terms on the right is always zero depending on the parity of $n-r$.
+\end{theorem}
+
+\begin{note}
+    Will include more on this later in stochastic process.
+\end{note}
+\chapter{Expectation}
+\section{Definition of expectation}
+\begin{definition}{Arbitrary real-valued random variables}
+    All definitions of the expected value may be expressed in the language of measure theory. In general, if $X$ is a real-valued random variable defined on a probability space $(\Omega, \Sigma, \mathrm{P})$, then the expected value of $X$, denoted by $\mathrm{E}[X]$, is defined as the Lebesgue integral
+$$
+\mathrm{E}[X]=\int_{\Omega} X d \mathrm{P}
+$$
+\end{definition}
+
+\begin{note}
+    This is a generalized definition which required Lebesgue Integral. I will direct the readers who are interested in this definiton to \href{https://en.wikipedia.org/wiki/Expected_value#Arbitrary_real-valued_random_variables}{here} .  Another definiton is given below.
+\end{note}
+
+\begin{definition}{3 step construction}
+(Definition of the expectation $\mathrm{E}[X]$). Consider random variables on some probability space $(\Omega, \mathcal{F}, P)$.\\
+
+Step 1. A simple random variable is a discrete random variable with finitely many values. Let $X$ be a nonnegative simple random variable. Then $X$ is of the form
+$$
+X(\omega)=\sum_{i=1}^m \alpha_i I_{A_i}(\omega)
+$$
+
+where $\alpha_1, \ldots, \alpha_m$ are its distinct nonnegative real values and the events $A_i=\{X=\alpha_i\}$ form a partition of $\Omega$. Define the expectation of $X$ by
+$$
+\mathrm{E}[X]=\sum_{i=1}^m \alpha_i P\left(A_i\right)=\sum_{i=1}^m \alpha_i P\left(X=\alpha_i\right)
+$$
+
+Step 2. Let $X$ be a $[0, \infty]$-valued random variable on $\Omega$. That is, the values $X(\omega)$ are nonnegative reals and possibly $\infty$. Then the expectation of $X$ is defined by
+$\mathrm{E}[X]=\sup \{E Y: Y$ is a simple random variable on $\Omega$ such that
+$$
+0 \leq Y(\omega) \leq X(\omega) \text { for all } \omega \in \Omega\}
+$$
+This defines a value $\mathrm{E}[X] \in[0, \infty]$.\\
+
+Step 3. Let $X$ be a $[-\infty, \infty]$-valued random variable on $\Omega$. That is, the values $X(\omega)$ are real numbers, $\infty$ or $-\infty$. The random variable $X$ is decomposed into its positive part $X^{+}$and negative part $X^{-}$by defining $X^{+}(\omega)=X(\omega) \vee 0$ and $X^{-}(\omega)=(-X(\omega)) \vee 0$. Random variables $X,|X|, X^{+}$and $X^{-}$satisfy the identities
+$$
+X(\omega)=X^{+}(\omega)-X^{-}(\omega) \text { and }|X(\omega)|=X^{+}(\omega)+X^{-}(\omega)
+$$
+The expectations $E\left(X^{+}\right)$and $E\left(X^{-}\right)$were defined in Step 2. If at least one of them is finite, the expectation of $X$ is defined by
+$$
+\mathrm{E}[X]=E\left(X^{+}\right)-E\left(X^{-}\right)
+$$
+In this case we say that $\mathrm{E}[X]$ is well-defined. If both $E\left(X^{+}\right)$and $E\left(X^{-}\right)$are infinite, then $\mathrm{E}[X]$ is not defined.
+\end{definition}
+\begin{note}
+    $\vee$ is an alternative notation for maximum
+\end{note}
+
+\begin{theorem}
+(a)
+Suppose $X$ is a discrete random variable. Then the following expectations have well-defined values in $[0, \infty]$ :
+$$
+E\left(X^{+}\right)=\sum_{k \geq 0} k P(X=k) \quad \text { and } \quad E\left(X^{-}\right)=\sum_{k \leq 0}(-k) P(X=k) .
+$$
+If at least one of these values is finite, then $E X$ is well defined as the difference:
+$$
+E X=\sum_{k \geq 0} k P(X=k)-\sum_{k \leq 0}(-k) P(X=k)
+$$\\
+
+(b) Suppose $X$ is an absolutely continuous random variable with density function $f$. Then the following expectations have well-defined values in $[0, \infty]$ :
+$$
+E\left(X^{+}\right)=\int_0^{\infty} x f(x) d x \quad \text { and } \quad E\left(X^{-}\right)=\int_{-\infty}^0(-x) f(x) d x
+$$
+If at least one of these values is finite, then $E X$ is well defined as the difference:
+$$
+E X=\int_0^{\infty} x f(x) d x-\int_{-\infty}^0(-x) f(x) d x
+$$
+\end{theorem}
+\begin{corollary}
+When well-defined the below definition also holds. \\
+(a) For a discrete random variable
+$$
+E(X)=\sum_k k P(X=k)
+$$
+where the sum ranges over all the possible values $k$ of $X$.\\
+(b) For an absolutely continuous random variable $X$ with density function $f$
+$$
+E[X]=\int_{-\infty}^{\infty} x f(x) d x
+$$
+\end{corollary}
+\section{Theorems and propositions for expectation}
+\begin{theorem}
+Suppose $P(X \geq 0)=1$. Then
+$$
+E(X)=\int_0^{\infty} P(X>s) d s
+$$
+In the particular discrete case where $P\left(X \in \mathbb{Z}_{\geq 0}\right)=1$, the formula can also be expressed as
+$$
+E(X)=\sum_{k=0}^{\infty} P(X>k)
+$$
+\end{theorem}
+
+\begin{theorem}
+Let $\mathbf{X}=\left(X_1, \ldots, X_d\right.$ ) be a random vector (or a scalar random variable, in case $d=1$ ) and $g$ a real-valued function defined on the range of $\mathbf{X}$. Assume that either $g \geq 0$ or that $g(\mathbf{X})$ is absolutely integrable, so that the expectation $E[g(\mathbf{X})]$ is well-defined. Then we have the following formulas for this expectation.
+(a) Suppose $X_1, \ldots, X_d$ are discrete random variables. Then
+$$
+E[g(\mathbf{X})]=\sum_{\mathbf{k}} g(\mathbf{k}) P(\mathbf{X}=\mathbf{k})
+$$
+where $\mathbf{k}$ ranges over the possible values of $\mathbf{X}$.
+(b) Suppose $X_1, \ldots, X_d$ are jointly continuous random variables with joint density function $f$. Then
+$$
+E[g(\mathbf{X})]=\int_{\mathbb{R}^d} g(\mathbf{x}) f(\mathbf{x}) d \mathbf{x}
+$$
+\end{theorem}
+
+\begin{proposition}
+ Let $X$ and $Y$ be random variables on $(\Omega, \mathcal{F}, P)$. Assume their expectations are well-defined. Then their expectations have the following properties.\\
+(i) Linearity: if $E X$ and $E Y$ are finite, then for any real numbers a,b,c,
+$$
+E[a X+b Y+c]=a E(X)+b E(Y)+c .
+$$
+(ii) Monotonicity: if $P(X \leq Y)=1$, then $E X \leq E Y$. If $P(X=Y)=1$ then $E X=E Y$\\
+(iii) $|E X| \leq E|X|$.\\
+(iv) Suppose $P(X \geq 0)=1$ and $E X=0$. Then $P(X=0)=1$.
+\end{proposition}
+
+\begin{theorem}
+    
+    Let $X$ be a nonnegative random variable and $r \in(1, \infty)$. Assume that $E\left[X^r\right]<\infty$. Then $E X<\infty$.
+\end{theorem}
+\begin{note}
+    This is an analogy for convergence in $L_p$ space.
+\end{note}
+
+\section{Variance}
+    \begin{definition}
+        The variance is important enough to be highlighted as a formula. If $X$ has finite mean $\mu=E X$, then its variance is
+$$
+\operatorname{Var}(X)=\sigma^2=E\left[(X-\mu)^2\right]
+$$
+Expansion of the square inside the brackets and linearity of expectation give an alternative formula for the variance:
+$$
+\begin{aligned}
+\operatorname{Var}(X) & =E\left[X^2-2 \mu X+\mu^2\right]=E\left[X^2\right]-2 \mu E X+\mu^2 \\
+& =E\left[X^2\right]-\mu^2
+\end{aligned}
+$$
+    \end{definition}
+
+\begin{theorem}
+    (i) Suppose $X$ has finite variance and $a, b$ are real numbers. Then $\operatorname{Var}(a X+b)=$ $a^2 \operatorname{Var}(X)$\\
+(ii) $\operatorname{Var}(X)=0$ if and only if there exists a real number $c$ such that $P(X=c)=1$. When this happens, $c$ is the mean of $X$.
+\end{theorem}
+
+\section{Linearity of expectation}
+
+\begin{theorem}
+    let $\mathbf{X}_i, 1 \leq i \leq n$, be random vectors defined on $(\Omega, \mathcal{F}, P)$ and for each index $i$ let $g_i$ be a real-valued function defined on the range of $X_i$. Then, as long as the expectations below are finite,
+$$
+\begin{aligned}
+E\left[g_1\left(\mathbf{X}_1\right)+g_2\left(\mathbf{X}_2\right)\right. & \left.+\cdots+g_n\left(\mathbf{X}_n\right)\right] \\
+= & E\left[g_1\left(\mathbf{X}_1\right)\right]+E\left[g_2\left(\mathbf{X}_2\right)\right]+\cdots+E\left[g_n\left(\mathbf{X}_n\right)\right]
+\end{aligned}
+$$
+\end{theorem}
+
+\begin{corollary}
+ Let $X_1, X_2, \ldots, X_n$ be random variables defined on the same probability space. Then
+$$
+E\left[X_1+X_2+\cdots+X_n\right]=E\left[X_1\right]+E\left[X_2\right]+\cdots+E\left[X_n\right]
+$$
+provided all the expectations on both sides are finite.
+\end{corollary}
+\begin{note}
+    The caveat in the theorem about all expectations being finite is needed.
+\end{note}
+\section{Expectation and independence}
+\begin{theorem}
+Suppose $X_1, \ldots, X_n$ are independent random variables. Then for all functions $g_1, \ldots, g_n$ for which the expectations below are well-defined,
+$$
+E\left[\prod_{k=1}^n g_k\left(X_k\right)\right]=\prod_{k=1}^n E\left[g_k\left(X_k\right)\right]
+$$
+\end{theorem}
+
+\begin{theorem}
+Assume the random variables $X_1, \ldots, X_n$ are independent and have finite variances. Then
+$$
+\operatorname{Var}\left(X_1+X_2+\cdots+X_n\right)=\operatorname{Var}\left(X_1\right)+\operatorname{Var}\left(X_2\right)+\cdots+\operatorname{Var}\left(X_n\right)
+$$
+\end{theorem}
+\section{Covariance and correlation}
+\begin{definition}
+Let $X$ and $Y$ be random variables defined on the same sample space with expectations $\mu_X$ and $\mu_Y$. The covariance of $X$ and $Y$ is
+$$
+\operatorname{Cov}(X, Y)=E\left[\left(X-\mu_X\right)\left(Y-\mu_Y\right)\right]
+$$
+if the expectation on the right is finite.
+By expanding the product inside the expectation, we get an alternative formula for the covariance:
+$$
+\begin{aligned}
+\operatorname{Cov}(X, Y) & =E\left[\left(X-\mu_X\right)\left(Y-\mu_Y\right)\right]=E\left[X Y-\mu_X Y-\mu_Y X+\mu_X \mu_Y\right] \\
+& =E[X Y]-\mu_X E[Y]-\mu_Y E[X]+\mu_X \mu_Y \\
+& =E[X Y]-\mu_X \mu_Y
+\end{aligned}
+$$
+\end{definition}
+\begin{proposition}
+ The following statements hold when the covariances are welldefined.\\
+(i) $\operatorname{Cov}(X, Y)=\operatorname{Cov}(Y, X)$.\\
+(ii) $\operatorname{Cov}(a X+b, Y)=a \operatorname{Cov}(X, Y)$ for real numbers $a, b$.\\
+(iii) Covariance is bilinear: namely, for random variables $X_i$ and $Y_j$ and real numbers $a_i$ and $b_j$
+$$
+\operatorname{Cov}\left(\sum_{i=1}^m a_i X_i, \sum_{j=1}^n b_j Y_j\right)=\sum_{i=1}^m \sum_{j=1}^n a_i b_j \operatorname{Cov}\left(X_i, Y_j\right)
+$$
+\end{proposition}
+\begin{theorem}
+ Let $X_1, \ldots, X_n$ be random variables with finite variances and covariances. Then
+$$
+\operatorname{Var}\left(\sum_{i=1}^n X_i\right)=\sum_{i=1}^n \operatorname{Var}\left(X_i\right)+2 \sum_{1 \leq i<j \leq n} \operatorname{Cov}\left(X_i, X_j\right)
+$$
+\end{theorem}
+\begin{definition}
+Let $X$ and $Y$ be random variables such that $\operatorname{Cov}(X, Y)$ is finite, $0<\operatorname{Var}(X)<\infty$ and $0<\operatorname{Var}(Y)<\infty$. The correlation coefficient of $X$ and $Y$ is defined by
+$$
+\operatorname{Corr}(X, Y)=\frac{\operatorname{Cov}(X, Y)}{\sqrt{\operatorname{Var}(X)} \sqrt{\operatorname{Var}(Y)}}
+$$
+\end{definition}
+\begin{proposition}
+Assume that $\operatorname{Cov}(X, Y)$ is finite, $0<\operatorname{Var}(X)<\infty$ and $0<$ $\operatorname{Var}(Y)<\infty$. The correlation coefficient has these properties.\\
+(i) $-1 \leq \operatorname{Corr}(X, Y) \leq 1$.\\
+(ii) $\operatorname{Corr}(X, Y)=1$ if and only if there exist $a>0$ and $b \in \mathbb{R}$ such that $Y=a X+b$.\\
+(iii) $\operatorname{Corr}(X, Y)=-1$ if and only if there exist $a<0$ and $b \in \mathbb{R}$ such that $Y=$ $a X+b$
+\end{proposition}
+\begin{note}
+    (i) follows from Cauchy-Schwarz inequality.
+\end{note}
+
+\chapter{Law of large numbers}
+\section{Markov and Chebyshev inequalities}
+\begin{lemma}{ Markov's inequality}
+ Let $X$ be a $[0, \infty]$-valued random variable and $c>0$. Then
+$$
+P(X \geq c) \leq \frac{E X}{c} .
+$$
+This inequality is useful only if $c>E X$.
+\end{lemma}
+
+\begin{lemma}{Chebyshev's inequality}
+ Let $X$ be a random variable with finite mean $\mu$ and finite variance $\sigma^2$. Then for any real $c>0$ we have
+$$
+P(|X-\mu| \geq c) \leq \frac{\sigma^2}{c^2}
+$$
+\end{lemma}
+
+\begin{theorem}{  Weak law of large numbers, WLLN}
+ Let $\left\{X_k\right\}_{k \geq 1}$ be i.i.d. random variables with finite mean $\mu=E\left[X_k\right]$ and finite variance ${\sigma^2}=\operatorname{Var}\left(X_k\right)$. Let $S_n=X_1+\cdots+X_n$. Then for any fixed $\varepsilon>0$ we have
+$$
+\lim _{n \rightarrow \infty} P\left(\left|\frac{S_n}{n}-\mu\right| \geq \varepsilon\right)=0
+$$
+\end{theorem}
+\begin{note}
+    This is the same with $\frac{S_n}{n}$ converge in probability to $\mu$.
+\end{note}
+
+\section{Convergence in probability and Almost surely convergence}
+\begin{definition}
+Let $\left\{X_n\right\}_{n \geq 1}$ be a sequence of random variables and $X$ another random variable, all defined on the same probability space $(\Omega, \mathcal{F}, P)$.\\
+
+(a) We say that $X_n$ converges to $X$ in probability as $n \rightarrow \infty$ if, for each $\varepsilon>0$
+$$
+\lim _{n \rightarrow \infty} P\left(\left|X_n-X\right| \geq \varepsilon\right)=0
+$$
+A common abbreviation is $X_n \stackrel{P}{\rightarrow} X$.\\
+
+(b) We say that $X_n$ converges to $X$ almost surely or with probability one if there is an event $\Omega_0 \subset \Omega$ such that $P\left(\Omega_0\right)=1$ and for all $\omega \in \Omega_0, X_n(\omega) \rightarrow X(\omega)$ as $n \rightarrow \infty$. Common abbreviations are $X_n \rightarrow X$ a.s. and $X_n \rightarrow X$ w.p.1.\\
+The definition of almost sure convergence $X_n \rightarrow X$ can be stated succinctly as $P\left\{\omega: \lim _{n \rightarrow \infty} X_n(\omega)=X(\omega)\right\}=1$ or even more tersely as $P\left(X_n \rightarrow X\right)=1$. 
+\end{definition}
+
+\begin{theorem}
+Suppose $X_n \rightarrow X$ almost surely. Then also $X_n \rightarrow X$ in probability.
+\end{theorem}
+\section{Borel-Cantelli lemma}
+\begin{lemma}{Borel-Cantelli lemma}
+    Let $\left\{A_n\right\}_{n \geq 1}$ be a sequence of events, all defined on the same sample space. Suppose $\sum_{n=1}^{\infty} P\left(A_n\right)<\infty$. Then
+    $$
+    P\left\{\omega: \omega \in A_n \text { for infinitely } \operatorname{many} n\right\}=0
+    $$ 
+\end{lemma}
+
+\section{Almost sure convergence from the Borel-Cantelli lemma}
+The next theorem encapsulates the most common strategy for proving almost sure convergence with the Borel-Cantelli lemma.
+\begin{theorem}
+Let $\left\{X_n\right\}_{n \geq 1}$ and $X$ be random variables on $(\Omega, \mathcal{F}, P)$. Suppose that for all $\varepsilon>0$
+$$
+\sum_{n=1}^{\infty} P\left(\left|X_n-X\right| \geq \varepsilon\right)<\infty .
+$$
+Then $X_n \rightarrow X$ almost surely.
+\end{theorem}
+\section{ Strong law of large numbers}
+\begin{theorem}
+    Let $\left\{X_k\right\}_{k \geq 1}$ be i.i.d. random variables with finite mean $\mu=E\left[X_k\right]$. Let $S_n=X_1+\cdots+X_n$. Then
+$$
+P\left\{\omega: \lim _{n \rightarrow \infty} \frac{S_n(\omega)}{n}=\mu\right\}=1 .
+$$
+In other words, $S_n / n \rightarrow \mu$ almost surely.
+\end{theorem}
+
+\chapter{Limits in distribution}
+\section{Converge in distribution}
+The definition of a limit in distribution is given below. In contrast with almost sure convergence and convergence in probability, for convergence in distribution the random variables do not have to be defined on the same sample space.
+\begin{definition}
+
+ Suppose that for each positive integer $n, X_n$ is a random variable with cumulative distribution function $F_n$. Let $X$ be a random variable with cumulative distribution function $F$. Then $X_n$ converges to $X$ in distribution if $F_n(x) \rightarrow F(x)$ as $n \rightarrow \infty$ at each point $x$ where $F$ is continuous.
+\end{definition}
+
+\begin{theorem}
+ Suppose $X_n \rightarrow X$ in probability. Then also $X_n \rightarrow X$ in distribution.
+\end{theorem}
+\section{Gaussian Distribution}
+
+In preparation for the central limit theorem, we introduce the Gaussian, or normal distribution.
+\begin{definition}
+Let $\mu$ be real and $\sigma>0$. A random variable $X$ has the normal distribution with mean $\mu$ and variance $\sigma^2$ if $X$ has density function
+$$
+f(x)=\frac{1}{\sqrt{2 \pi \sigma^2}} e^{-\frac{(x-\mu)^2}{2 \sigma^2}}
+$$
+on the real line. Abbreviate this by $X \sim \mathcal{N}\left(\mu, \sigma^2\right)$.
+\end{definition}
+\begin{note}
+    There is a great 3blue1brown video explaining why this is a PDF. 
+\end{note}
+\begin{theorem}
+Let $Z \sim \mathcal{N}(0,1)$. Then $E(Z)=0$ and $\operatorname{Var}(Z)=E\left(Z^2\right)=1$.
+\end{theorem}
+
+\begin{proposition}
+Let $\mu$ be real, $\sigma>0$, and $X \sim \mathcal{N}\left(\mu, \sigma^2\right)$.\\
+(i) Let $a \neq 0$, b real, and $Y=a X+b$. Then $Y \sim \mathcal{N}\left(a \mu+b, a^2 \sigma^2\right)$.\\
+(ii) $Z=\frac{X-\mu}{\sigma}$ is a standard normal random variable.
+\end{proposition}
+\section{ Central limit theorem}
+\begin{theorem}{ Central limit theorem}
+
+ Suppose $X_1, X_2, X_3, \ldots$ are i.i.d. random variables with finite mean $E\left[X_1\right]=\mu$ and finite variance $\operatorname{Var}\left(X_1\right)=\sigma^2$. Let $S_n=$ $X_1+\cdots+X_n$. Then for any fixed $-\infty \leq a \leq b \leq \infty$ we have
+$$
+\lim _{n \rightarrow \infty} P\left(a \leq \frac{S_n-n \mu}{\sigma \sqrt{n}} \leq b\right)=\Phi(b)-\Phi(a)=\int_a^b \frac{1}{\sqrt{2 \pi}} e^{-\frac{y^2}{2}} d y
+$$
+\end{theorem}
+
+\section{Normal Approximation of the binomial}
+\begin{theorem}{Central limit theorem for Bernoulli random variables}
+ Let $0<$ $p<1$ be fixed and suppose that $S_n \sim \operatorname{Bin}(n, p)$. Then for any fixed $-\infty \leq a \leq b \leq$ $\infty$
+$$
+\lim _{n \rightarrow \infty} P\left(a \leq \frac{S_n-n p}{\sqrt{n p(1-p)}} \leq b\right)=\Phi(b)-\Phi(a)=\int_a^b \frac{1}{\sqrt{2 \pi}} e^{-\frac{x^2}{2}} d x .
+$$
+Another name for this theorem is the de Moivre-Laplace theorem, and it goes back to the early 1700s. We use this theorem as an imprecise approximation of binomial probabilities with Gaussian probabilities:
+$$
+P\left(a \leq \frac{S_n-n p}{\sqrt{n p(1-p)}} \leq b\right) \approx \Phi(b)-\Phi(a)
+$$
+\end{theorem}
+\begin{note}
+    A commonly used rule of thumb is that the approximation is good if $n p(1-p)>10$.
+\end{note}
+\section{Continuity correction}
+\begin{corollary}
+A random variable $S_n \sim \operatorname{Bin}(n, p)$ takes only integer values. Thus, if $k_1, k_2$ are integers then
+$$
+P\left(k_1 \leq S_n \leq k_2\right)=P\left(k_1-1 / 2 \leq S_n \leq k_2+1 / 2\right)
+$$
+\end{corollary}
+\section{Confidence interval}
+$$
+\begin{aligned}
+P(|\widehat{p}-p|<\varepsilon) & =P\left(\left|\frac{S_n}{n}-p\right|<\varepsilon\right)=P\left(-n \varepsilon<S_n-n p<n \varepsilon\right) \\
+& =P\left(-\frac{\varepsilon \sqrt{n}}{\sqrt{p(1-p)}}<\frac{S_n-n p}{\sqrt{n p(1-p)}}<\frac{\varepsilon \sqrt{n}}{\sqrt{p(1-p)}}\right) .
+\end{aligned}
+$$
+Up to this point we have used only algebra. Now comes the normal approximation:
+$$
+\begin{aligned}
+P\left(-\frac{\varepsilon \sqrt{n}}{\sqrt{p(1-p)}}<\frac{S_n-n p}{\sqrt{n p(1-p)}}<\frac{\varepsilon \sqrt{n}}{\sqrt{p(1-p)}}\right) & \approx \Phi\left(\frac{\varepsilon \sqrt{n}}{\sqrt{p(1-p)}}\right)-\Phi\left(-\frac{\varepsilon \sqrt{n}}{\sqrt{p(1-p)}}\right) \\
+& =2 \Phi\left(\frac{\varepsilon \sqrt{n}}{\sqrt{p(1-p)}}\right)-1\\
+&\geq 2 \Phi(2 \varepsilon \sqrt{n})-1
+\end{aligned}
+$$
+\section{Possion Approximation}
+\begin{theorem}{Poisson approximation of the binomial with error term}
+Let $S \sim$ $\operatorname{Bin}(n, p)$ and $Y \sim \operatorname{Poisson}(n p)$. Then
+$$
+\sum_{k=0}^{\infty}|P(S=k)-P(Y=k)| \leq 2 n p^2 .
+$$
+\end{theorem}
+\chapter{Generating functions}
+\section{3 Probability Generating functions}
+
+\begin{definition}
+    The probability generating function of a random variable $X$ is defined as the function $G_X(s)=E s^X$ (for whichever $s$ this is defined).\\
+
+The moment generating function of a random variable $X$ is defined as the function $M_X(t)=E e^{t X}$ (for whichever $t$ this is defined).\\
+
+The characteristic function of a random variable $X$ is defined as the function $\phi_X(t)=E e^{i t X}$
+Note: $e^{i t X}$ is a complex valued random variable. The expectation of a complex random variable $Z$ is defined as $E \Re Z+i E \Im Z$. (You just take the expectation of real and imaginary parts separately.)
+\end{definition}
+\begin{proposition}{nth derivative}
+  (a) When X is nonnegative and integer valued.$$
+\left.\frac{d^k}{s^k} G_X(s)\right|_{s=0}=k ! P(X=k)
+$$
+Thus $G_X(s)$ identifies the distribution if $X$ is nonnegative and integer valued.\\
+
+(b)
+If $M_X(t)$ is defined in a small neighborhood of 0 then the derivatives at zero are equal to the moments (if they exist).
+$$
+\frac{d}{d t} E e^{t X}=E\left(e^{t X} X\right), \quad M^{\prime}(0)=E X
+$$
+(One would need to justify the fact that we can differentiate inside the expectation. If $M_X(t)$ is finite in a neighborhood of 0 then this is justified.) Same works for higher order derivatives (if the moments exist):
+$$
+M_X^{(n)}(0)=E X^n
+$$
+(c)
+The derivatives at zero will produce the moments (if they exist).
+$$
+\frac{d}{d t} E e^{i t X}=E\left(e^{i t X} X\right), \quad \phi^{\prime}(0)=i E X
+$$
+(One would again need to justify the fact that we can differentiate inside the expectation.) Same works for higher order derivatives (if the moments exist):
+$$
+\phi_X^{(n)}(0)=i^n E X^n
+$$
+\end{proposition}
+
+
+\begin{theorem}
+When the moment generating function $M(t)$ of a random variable $X$ is finite in an interval around the origin, then all moments of $X$ are finite and are given by
+$$
+E\left(X^n\right)=M^{(n)}(0)
+$$
+\end{theorem}
+
+\section{Identification of distributions with moment generating functions}
+\begin{theorem}
+    Let $X$ and $Y$ be two random variables with moment generating functions $M_X(t)=E\left(e^{t X}\right)$ and $M_Y(t)=E\left(e^{t Y}\right)$. Suppose there exists $\delta>0$ such that for $t \in(-\delta, \delta), M_X(t)=M_Y(t)$ and these are finite numbers. Then $X$ and $Y$ are equal in distribution.
+\end{theorem}
+\section{Moment generating function of a sum of independent random variables}
+
+\begin{theorem}
+ Suppose that $X$ and $Y$ are independent random variables with moment generating functions $M_X(t)$ and $M_Y(t)$. Then for all real numbers $t$
+$$
+M_{X+Y}(t)=M_X(t) M_Y(t) .
+$$
+\end{theorem}
+
+\begin{note}
+    Moment generating function can help to prove central limit theorem.
+\end{note}
+
+\chapter{Conditional Expectation}
+\section{Conditional distributions}
+\begin{definition}{Discrete case}
+ Let $X$ and $Y$ be discrete random variables. Let $y \in \mathbb{R}$ be point such that $P(Y=y)>0$. Then the conditional probability mass function of $X$ given $Y=y$ is the function $p_{X \mid Y}(x \mid y)$ of possible values $x$ of $X$, defined as follows:
+$$
+p_{X \mid Y}(x \mid y)=P(X=x \mid Y=y)=\frac{P(X=x, Y=y)}{P(Y=y)}=\frac{p_{X, Y}(x, y)}{p_Y(y)}
+$$
+The conditional expectation of $X$ given $Y=y$ is
+$$
+E[X \mid Y=y]=\sum_x x p_{X \mid Y}(x \mid y)
+$$
+\end{definition}
+\begin{definition}{Continuous case}
+Let $X$ and $Y$ be jointly continuous random variables with joint density function $f_{X, Y}(x, y)$. For those $y \in \mathbb{R}$ such that $f_Y(y)>0$ we make the following definitions.
+
+The conditional density function of $X$, given $Y=y$, is denoted by $f_{X \mid Y}(x \mid y)$ and defined as
+$$
+f_{X \mid Y}(x \mid y)=\frac{f_{X, Y}(x, y)}{f_Y(y)} \text {. }
+$$
+The conditional probability that $X \in A$, given $Y=y$, is
+$$
+P(X \in A \mid Y=y)=\int_A f_{X \mid Y}(x \mid y) d x .
+$$
+The conditional expectation of $X$, given $Y=y$, is
+$$
+E[X \mid Y=y]=\int_{-\infty}^{\infty} x f_{X \mid Y}(x \mid y) d x
+$$
+\end{definition}
+
+\begin{theorem}
+For the conditional expectation of $g(X)$ given that $Y=y$ we have the following formulas provided the expectations are well-defined.
+(i) In the discrete case
+$$
+E[g(X) \mid Y=y]=\sum_x g(x) p_{X \mid Y}(x \mid y)
+$$
+for $y$ such that $P(Y=y)>0$.\\
+(ii) In the jointly continuous case
+$$
+E[g(X) \mid Y=y]=\int_{-\infty}^{\infty} g(x) f_{X \mid Y}(x \mid y) d x .
+$$
+for $y$ such that $f_Y(y)>0$.
+\end{theorem}
+
+\begin{proposition}
+ We have the following averaging identities. Assume that the expectations of $g(X)$ below are well-defined.
+(i) In the discrete case
+$$
+p_X(x)=\sum_y p_{X \mid Y}(x \mid y) p_Y(y)
+$$
+and
+$$
+E[g(X)]=\sum_y E[g(X) \mid Y=y] p_Y(y) .
+$$
+(ii) In the jointly continuous case
+$$
+f_X(x)=\int_{-\infty}^{\infty} f_{X \mid Y}(x \mid y) f_Y(y) d y
+$$
+and
+$$
+E[g(X)]=\int_{-\infty}^{\infty} E[g(X) \mid Y=y] f_Y(y) d y
+$$
+\end{proposition}
+\begin{note}
+    $E[E[X|Y]] = E[X]$
+\end{note}
+\section{Conditioning and independence}
+\begin{theorem}
+Discrete random variables $X$ and $Y$ are independent if and only if $p_{X \mid Y}(x \mid y)=p_X(x)$ for all possible values $x$ of $X$, whenever $p_Y(y)>0$.
+
+Jointly continuous random variables $X$ and $Y$ are independent if and only if $f_{X \mid Y}(x \mid y)=f_X(x)$ for all $x$, whenever $f_Y(y)>0$.
+\end{theorem}
+
+\chapter{Reference}
+
+\href{https://people.math.wisc.edu/~valko/courses/531/531.html}{Math 531: Probability Theory} 
 
 \end{document}

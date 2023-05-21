@@ -1,11 +1,11 @@
 # Fdb version 3
-["biber probability"] 1684538400 "probability.bcf" "probability.bbl" "probability" 1684538560
-  "probability.bcf" 1684538560 106832 261fdead144de8b624e9212a33cadcfe "pdflatex"
+["biber probability"] 1684579059 "probability.bcf" "probability.bbl" "probability" 1684579266
+  "probability.bcf" 1684579266 106832 261fdead144de8b624e9212a33cadcfe "pdflatex"
   (generated)
   "probability.bbl"
   "probability.blg"
-["pdflatex"] 1684538557 "/Users/linrongcai/Documents/github/probablity/probability.tex" "probability.pdf" "probability" 1684538560
-  "/Users/linrongcai/Documents/github/probablity/probability.tex" 1684538557 25487 b2bd7ff7fb574037c159631c439a90fa ""
+["pdflatex"] 1684579262 "/Users/linrongcai/Documents/github/probablity/probability.tex" "probability.pdf" "probability" 1684579266
+  "/Users/linrongcai/Documents/github/probablity/probability.tex" 1684579262 58343 873650a8c6e03ba97d53e7e8fe4d0805 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/enc/dvips/newtx/ntx-ot1-tlf.enc" 1422827479 2083 60e36f8eac802fcaf19eabe2633b406e ""
   "/usr/local/texlive/2022/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2022/texmf-dist/fonts/tfm/adobe/symbol/psyr.tfm" 1136768653 1408 5937f58aa508ea2cea4901c07d10f5fe ""
@@ -300,12 +300,12 @@
   "/usr/local/texlive/2022/texmf.cnf" 1647878952 577 209b46be99c9075fd74d4c0369380e8c ""
   "elegantbook.cls" 1684214216 50301 838188b4e12aff669ab9702f4e698d8e ""
   "figure//cover.png" 1684211738 172105 cd428928df9e2f10afca6209174b734c ""
-  "probability.aux" 1684538560 4672 190ccfa48ac09e60fd9fc972303833d0 "pdflatex"
-  "probability.bbl" 1684538401 466 ee04f40f768daeed26442158e95aba61 "biber probability"
-  "probability.out" 1684538560 6162 f05ccd1cc7f87c9e42c308e3412306a3 "pdflatex"
-  "probability.run.xml" 1684538560 2358 f505015f468e0c2d7f4dadb1d263a9e5 "pdflatex"
-  "probability.tex" 1684538557 25487 b2bd7ff7fb574037c159631c439a90fa ""
-  "probability.toc" 1684538560 2456 cb7db16f5fdcdb0458e00882f3970d28 "pdflatex"
+  "probability.aux" 1684579266 9967 dc20a1c02c94b8136b94591052f2f95a "pdflatex"
+  "probability.bbl" 1684579062 466 ee04f40f768daeed26442158e95aba61 "biber probability"
+  "probability.out" 1684579266 14193 e4571f43c4696a0c2cafeb182ea9f4d7 "pdflatex"
+  "probability.run.xml" 1684579266 2358 f505015f468e0c2d7f4dadb1d263a9e5 "pdflatex"
+  "probability.tex" 1684579262 58343 873650a8c6e03ba97d53e7e8fe4d0805 ""
+  "probability.toc" 1684579266 5702 324aa36bd0b2422cbe00ad5b1296d4dc "pdflatex"
   (generated)
   "probability.aux"
   "probability.bcf"
